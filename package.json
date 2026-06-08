@@ -4,6 +4,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "swagger": "node swagger.js",
     "start": "node server.js",
     "dev": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +18,10 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongodb": "^7.2.0",
+    "mongoose": "^9.6.3",
     "morgan": "^1.11.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   }
 }
