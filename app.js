@@ -4,6 +4,7 @@ import cors from "cors"; //Faltaría configurar con los dominios permitidos
 import fs from "fs";
 import swaggerUi from "swagger-ui-express"; // Middleware de Swagger
 import eventRoutes from "./src/routes/event.routes.js";
+import authRoutes from "./src/routes/auth.routes.js";
 
 const swaggerFile = JSON.parse(
     fs.readFileSync("./swagger-output.json", "utf-8")
@@ -20,5 +21,6 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Rutas de la APP
 app.use("/api/v1", eventRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 export default app;

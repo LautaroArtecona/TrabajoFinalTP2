@@ -19,7 +19,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-});
+    rol: {
+        type: String,
+        enum: ["usuario", "organizador"],
+        default: "usuario",
+    },
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 
