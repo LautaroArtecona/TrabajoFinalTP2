@@ -21,12 +21,17 @@ const swaggerFile = JSON.parse(
 
 const app = express();
 
+app.set("trust proxy", true);
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 
 // Ruta de la documentación de Swagger
-app.get("/swagger.json", (req, res) => res.json(swaggerFile));
+app.get("/swagger.json", (req, res) => {
+  const host = req.get("host");
+  const scheme = req.protocol;
+  res.json({ ...swaggerFile, host, schemes: [scheme] });
+});
 app.get("/docs", (req, res) => {
   res.send(`<!DOCTYPE html>
 <html lang="es">
