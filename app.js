@@ -1,8 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import morgan from "morgan";
-import cors from "cors"; //Faltaría configurar con los dominios permitidos
+import cors from "cors";
 import fs from "fs";
-import swaggerUi from "swagger-ui-express"; // Middleware de Swagger
+import mongoose from "mongoose";
+import swaggerUi from "swagger-ui-express";
 import eventRoutes from "./src/routes/event.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
 
@@ -22,5 +26,13 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // Rutas de la APP
 app.use("/api/v1", eventRoutes);
 app.use("/api/v1/auth", authRoutes);
+
+// Conexión a MongoDB
+const MONGO_URI = process.env.MONGO_URI;
+if (MONGO_URI) {
+  mongoose.connect(MONGO_URI)
+    .then(() => console.log("Conectado a Mongo Atlas"))
+    .catch((err) => console.log("Error de conexión:", err));
+}
 
 export default app;
