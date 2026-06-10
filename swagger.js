@@ -5,9 +5,9 @@ const doc = {
     title: "E-Tickets API",
     description: "Documentación oficial del backend para la gestión de eventos y venta de entradas.",
   },
-  host: "localhost:3000",
+  host: process.env.VERCEL_URL || "localhost:3000",
   basePath: "/api/v1",
-  schemes: ["http"],
+  schemes: [process.env.VERCEL_URL ? "https" : "http"],
   securityDefinitions: {
     bearerAuth: {
       type: "apiKey",
