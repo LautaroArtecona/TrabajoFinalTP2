@@ -8,7 +8,6 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import mongoose from "mongoose";
-import swaggerUi from "swagger-ui-express";
 import eventRoutes from "./src/routes/event.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import ticketRoutes from "./src/routes/ticket.routes.js";
@@ -27,7 +26,27 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // Ruta de la documentación de Swagger
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.get("/swagger.json", (req, res) => res.json(swaggerFile));
+app.get("/docs", (req, res) => {
+  res.send(`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>E-Tickets API - Docs</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" />
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script>
+    SwaggerUIBundle({
+      url: "/swagger.json",
+      dom_id: "#swagger-ui",
+    });
+  </script>
+</body>
+</html>`);
+});
 
 // Rutas de la APP
 app.use("/api/v1", eventRoutes);
