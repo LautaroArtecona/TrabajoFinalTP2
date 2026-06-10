@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import eventRoutes from "./src/routes/event.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
+import ticketRoutes from "./src/routes/ticket.routes.js";
 
 const swaggerFile = JSON.parse(
     fs.readFileSync("./swagger-output.json", "utf-8")
@@ -26,6 +27,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // Rutas de la APP
 app.use("/api/v1", eventRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/tickets", ticketRoutes);
 
 // Conexión a MongoDB
 const MONGO_URI = process.env.MONGO_URI;
