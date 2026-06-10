@@ -50,7 +50,7 @@ app.get("/docs", (req, res) => {
 
 // Rutas de la APP
 app.use("/api/v1", eventRoutes);
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1", authRoutes);
 app.use("/api/tickets", ticketRoutes);
 
 // Conexión a MongoDB
