@@ -54,9 +54,9 @@ app.get("/docs", (req, res) => {
 });
 
 // Rutas de la APP
-app.use("/api/v1", eventRoutes);
-app.use("/api/v1", authRoutes);
-app.use("/api/tickets", ticketRoutes);
+app.use("/api/v1/events", eventRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/tickets", ticketRoutes);
 
 // Conexión a MongoDB
 const MONGO_URI = process.env.MONGO_URI;

@@ -5,9 +5,9 @@ import { verifyToken, soloOrganizador } from "../middlewares/auth.middleware.js"
 const router = Router();
 
 // GET /api/v1/events — pública, cualquiera puede ver los eventos
-router.get("/events", getAllEvents);
+router.get("/", getAllEvents);
 
 // POST /api/v1/events — protegida: solo organizadores logueados pueden crear eventos
-router.post("/events", verifyToken, soloOrganizador, createEvent);
+router.post("/", verifyToken, soloOrganizador, createEvent);
 
 export default router;
