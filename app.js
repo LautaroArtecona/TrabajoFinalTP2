@@ -5,14 +5,19 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import fs from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import eventRoutes from "./src/routes/event.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import ticketRoutes from "./src/routes/ticket.routes.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const swaggerFile = JSON.parse(
-    fs.readFileSync("./swagger-output.json", "utf-8")
+    fs.readFileSync(join(__dirname, "./swagger-output.json"), "utf-8")
 );
 
 const app = express();
