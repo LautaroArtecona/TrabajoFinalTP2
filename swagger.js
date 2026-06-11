@@ -4,7 +4,9 @@ const doc = {
   info: {
     title: "E-Tickets API",
     description: "Documentación oficial del backend para la gestión de eventos y venta de entradas.",
-  },
+  }, 
+  
+  
   host: process.env.VERCEL_URL || "localhost:3000",
   basePath: "/api/v1",
   schemes: [process.env.VERCEL_URL ? "https" : "http"],
@@ -21,14 +23,17 @@ const doc = {
       bearerAuth: [],
     },
   ],
+  
+  ignore: {path: ["/swagger.json", "/docs"]},
 };
 
 const outputFile = "./swagger-output.json";
 
 const endpointsFiles = [
-  "./src/routes/event.routes.js",
-  "./src/routes/auth.routes.js",
-  "./src/routes/ticket.routes.js",
+//  "./src/routes/event.routes.js",
+//  "./src/routes/auth.routes.js",
+//  "./src/routes/ticket.routes.js",
+"./app.js"
 ];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);
