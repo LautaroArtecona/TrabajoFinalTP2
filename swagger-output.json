@@ -19,7 +19,7 @@
     }
   },
   "paths": {
-    "/events": {
+    "/getEvent": {
       "get": {
         "description": "",
         "responses": {
@@ -30,7 +30,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/createEvent": {
       "post": {
         "description": "",
         "parameters": [
@@ -86,7 +88,7 @@
         }
       }
     },
-    "/auth/register": {
+    "/register": {
       "post": {
         "description": "",
         "parameters": [
@@ -125,7 +127,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/login": {
       "post": {
         "description": "",
         "parameters": [
@@ -161,6 +163,32 @@
         }
       }
     },
+    "/getTicket": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/{id}": {
       "delete": {
         "description": "",
@@ -189,6 +217,47 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/buyTicket": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eventId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"

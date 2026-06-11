@@ -24,6 +24,12 @@ const userSchema = new Schema({
         enum: ["usuario", "organizador"],
         default: "usuario",
     },
+
+    tickets: [{
+         type: Schema.Types.ObjectId,
+        ref: "Ticket" 
+    }]
+
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

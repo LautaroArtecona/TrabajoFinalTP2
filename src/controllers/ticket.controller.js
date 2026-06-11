@@ -1,8 +1,8 @@
-import { getMyTicketsFromDB, cancelTicketInDB } from "../services/ticket.service.js";
+import { getMyTicketsFromDB, createTicketInDB, cancelTicketInDB } from "../services/ticket.service.js";
 
 export const getMyTickets = async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = req.user?._id || req.user?.id; 
     if (!userId) {
       return res.status(401).json({ message: "Usuario no autenticado." });
     }
@@ -14,9 +14,36 @@ export const getMyTickets = async (req, res) => {
   }
 };
 
+export const buyTicket = async (req, res) => {
+  try {
+    const userId = req.user?._id || req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Usuario no autenticado." });
+    }
+
+    const { eventId } = req.body; 
+    if (!eventId) {
+      return res.status(400).json({ message: "El ID del evento es requerido para la compra." });
+    }
+
+    const newTicket = await createTicketInDB(eventId, userId);
+
+    res.status(201).json({ 
+      message: "¡Compra realizada con éxito!", 
+      ticket: newTicket 
+    });
+
+  } catch (error) {
+      if (error.message.includes("stock") || error.message.includes("no existe")) {
+      return res.status(400).json({ message: error.message });
+    }
+    res.status(500).json({ message: "Error al procesar la compra", error: error.message });
+  }
+};
+
 export const cancelTicket = async (req, res) => {
   try {
-    const userId = req.user?.id;
+   const userId = req.user?._id || req.user?.id;
     if (!userId) {
       return res.status(401).json({ message: "Usuario no autenticado." });
     }
